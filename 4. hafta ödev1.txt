@@ -1,0 +1,69 @@
+notlar = {
+    "Ali": {"Matematik": 85, "Fizik": 78},
+    "Berna": {"Matematik": 95, "Fizik": 90}
+}
+
+def islem_yap():
+    """Kullanıcıdan işlem seçimi yaparak sözlük üzerinde değişiklik ve sorgulama yapar."""
+    
+    while True:
+        print("\n--- ÖĞRENCİ NOT SİSTEMİ ---")
+        print("1: Sorgula  |  2: Ekle  |  3: Güncelle  |  4: Göster  |  5: Çıkış")
+        
+        secim = input("Seçiminiz (1-5): ").strip()
+
+        if secim == '1': # NOT SORGULA
+            ad = input("Sorgulanacak öğrenci adı: ").strip()
+            ders = input("Ders adı (Matematik/Fizik/Kimya): ").strip()
+            
+            
+            if ad in notlar and ders in notlar[ad]:
+                print(f"{ad} - {ders} Notu: **{notlar[ad][ders]}**")
+            else:
+                print("Bilgi bulunamadı.")
+
+        elif secim == '2': # YENİ ÖĞRENCİ/DERS EKLEME
+            ad = input("Eklenecek öğrenci adı: ").strip()
+            ders = input("Eklenecek ders adı: ").strip()
+            try:
+                yeni_not = int(input(f"{ad} için {ders} notu: "))
+                
+               
+                if ad not in notlar:
+                    notlar[ad] = {}
+                
+               
+                notlar[ad][ders] = yeni_not
+                print(f"{ad} öğrencisine {ders} dersi başarıyla eklendi.")
+            except ValueError:
+                print("Hata: Not bir sayı olmalıdır.")
+
+        elif secim == '3': # NOT GÜNCELLE
+            ad = input("Güncellenecek öğrenci adı: ").strip()
+            ders = input("Güncellenecek ders adı: ").strip()
+            
+            if ad in notlar and ders in notlar[ad]:
+                try:
+                    yeni_not = int(input(f"{ad}'ın {ders} için yeni notu: "))
+                    notlar[ad][ders] = yeni_not
+                    print(f"{ad} - {ders} notu **{yeni_not}** olarak güncellendi.")
+                except ValueError:
+                    print("Hata: Not bir sayı olmalıdır.")
+            else:
+                print("Öğrenci veya ders bulunamadı.")
+                
+        elif secim == '4': 
+            print("\n--- TÜM NOTLAR ---")
+            for ogrenci, not_detay in notlar.items():
+                print(f"**{ogrenci}**: {not_detay}")
+
+        elif secim == '5': 
+            print("Çıkış yapılıyor...")
+            break
+            
+        else:
+            print("Geçersiz seçim.")
+
+
+if __name__ == "__main__":
+    islem_yap()
